@@ -5,7 +5,7 @@ node.js script that pulls tweets from the twitter stream, then writes tweets int
     * first install node js  @ http://nodejs.org/download/
     ...then download this folder and run 
     ```
-    npm install' 
+    npm install
     ```
      this should install all dependencies.
     
