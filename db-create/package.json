@@ -1,0 +1,16 @@
+{
+"name": "db-create",
+"version": "0.0.0",
+"description": "populates db",
+"main": "db-create.js",
+"dependencies": {
+"fs": "~0.0.2",
+"twit": "~1.1.18"
+},
+"devDependencies": {},
+"scripts": {
+"test": "echo \"Error: no test specified\" && exit 1"
+},
+"author": "Peter Dirks",
+"license": "BSD"
+}
