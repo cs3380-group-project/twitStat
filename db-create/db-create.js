@@ -7,10 +7,10 @@
 var fs = require('fs');
 var Twit = require('twit');
 var T = new Twit({
-	  consumer_key: // get your own credentails
-	, consumer_secret: // get your own credentails
-	, access_token: // get your own credentails
-	, access_token_secret: // get your own credentails
+	  consumer_key: 'Z8xZVqOwIJCoVt2HNWPoyTPuk'
+	, consumer_secret: 'f73H3LfIiC37PMvDfPjX8ef4aZE6EDhPbUMCPEFXnCPKntvKTb'
+	, access_token: '21799745-mAVFDZIPk0ib6VFVwnctwYNWvo4WAl3y6sJkEjyLT'
+	, access_token_secret: 'o18qjH5VB9KdFbyGOc2pf8DPVnFtHY6NFhUMjSlf1GxtU'
 })
 var wstream = fs.createWriteStream('tweetDB.sql');
 
@@ -28,18 +28,20 @@ wstream.write("CREATE TABLE tweets(\n\tid serial primary key,\n\ttweet text NOT 
 wstream.write("source varchar(300),\n\tuser_id bigint\n);\n");
 
 
-wstream.write("CREATE TABLE geo(\n\tid serial references tweets,\n\tlat double precision,\n\tlong double precision\n);\n");
+wstream.write("CREATE TABLE geo(\n\tid serial references tweets,\n\tlatitude double precision,\n\tlongitude double precision\n);\n");
 //wstream.write("coords text\n);\n");
 
 wstream.write("");
 
 var stream = T.stream('statuses/sample')	// create stream object
 
+var count = 0;
 
 stream.on('tweet', function (tweet) {	// go and grab one tweet from stream
 //		console.log(tweet)	// log tweet onto screen
 		//count--;
-		
+		console.log(count);
+		count++;
 		// create user entry
 		wstream.write("INSERT INTO twit_user VALUES (\n\t");
 		wstream.write("\'"+tweet.user.id+"\',\n\t");
@@ -81,18 +83,25 @@ stream.on('tweet', function (tweet) {	// go and grab one tweet from stream
 		
 		wstream.write(tweet.user.id+"\n");
 		wstream.write(");\n");
-/*		
-//		console.log(tweet.type);
-//		console.log(tweet.coordinates);
-		var geo = tweet.geo;
 
-		var geoStr = String(tweet.geo);
-		console.log(JSON.stringify(tweet.geo));
-		if(geoStr.indexOf("null")==-1){
-			wstream.write("INSERT INTO geo VALUES (\n\t");		
-			wstream.write("DEFAULT,\n\t");				
-//			wstream.write("\'"+geoStr+"\',\n\t");
-			wstream.write("\'"+JSON.stringify(tweet.geo)+"\'\n");
-			wstream.write(");\n");						
-		}*/
+		// create geo-tweet	
+
+
+	var geo = String(tweet.geo);
+	if(geo.indexOf("null")==-1){
+		var coordChunk = JSON.stringify(tweet.geo);
+		var clean = '';
+		console.log("chunk: "+coordChunk);
+		var chunkStr = String(coordChunk);
+		clean = chunkStr.substring(31);
+		var coord = 0;
+		coord = clean.match(/([0-9.-])+/gi);
+		console.log("\tlat: " ,parseFloat( coord[0] ));
+		var lat = parseFloat( coord[0] );
+		console.log("\tlong: ",parseFloat( coord[1] ));
+		var long = parseFloat( coord[1] );
+		
+		wstream.write("INSERT INTO geo values (\n\t default,\n\t");
+		wstream.write(lat + ",\n\t" + long + "\n);\n")
+	}
 })
