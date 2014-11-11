@@ -20,7 +20,7 @@ CREATE TABLE users(
 	username varChar(50) primary key,
 	password_hash 	CHAR(40) NOT NULL,
 	salt 		CHAR(40) NOT NULL,
-	screen_name varChar(50) ,
+	screen_name varChar(50),
 	FOREIGN KEY (screen_name) REFERENCES twit_user(screen_name)
 );
 CREATE TABLE tweets(
