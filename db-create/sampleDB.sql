@@ -16,6 +16,13 @@ CREATE TABLE twit_user(
 	profile_img_url varchar(300),
 	default_img boolean
 );
+CREATE TABLE users(
+	username varChar(50) primary key,
+	password_hash 	CHAR(40) NOT NULL,
+	salt 		CHAR(40) NOT NULL,
+	screen_name varChar(50) ,
+	FOREIGN KEY (screen_name) REFERENCES twit_user(screen_name)
+);
 CREATE TABLE tweets(
 	id serial primary key,
 	tweet text NOT NULL,
