@@ -42,7 +42,7 @@
         ]);
 
         // Set chart options
-        var options = {'title':'Programming language',
+        var options = {'title':'Language',
                        'width':1000,
                        'height':1000};
 
