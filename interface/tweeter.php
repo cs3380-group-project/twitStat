@@ -34,12 +34,14 @@
 </head>
 <body>
 	<center>
+	<font color="white">
+	<table frame="border" rules="none" border="8" border-color="blue" bgcolor="cornflowerblue" style="width:65%" ><tr><td align="center">
 	<h1><img align="middle" src= "<?= $tweeter['profile_img_url'] ?>" height="100" width="100" 
 		onerror="this.src='https://lh3.ggpht.com/lSLM0xhCA1RZOwaQcjhlwmsvaIQYaP3c5qbDKCgLALhydrgExnaSKZdGa8S3YtRuVA=w300';" 
-		style="border:10px solid cornflowerblue"/>
+		style="border:5px solid white"/>
 	 &nbsp &nbsp Tweeter: <?= $tweeter['name'] ?> </h1>
-	<h4> <?php echo "\"" . $tweeter['screen_name'] . "\""; ?> </h4>
-	<p><strong>Description:</strong><br/>
+	<h4> <?php echo "\"" . $tweeter['screen_name'] . "\""; ?> </h4></td></tr>
+	<tr><td align="center"><p><strong>Description:</strong><br/>
 		<?php if ( ($tweeter['desription'] == "null")  || is_null($tweeter['desription']) || empty($tweeter['desription']) )
 			{
 			  echo "No description for this tweeter.";
@@ -47,21 +49,20 @@
 			else 
 			{
 			  echo $tweeter['desription'];
-			} ?></p> 
-	<p><strong>Location: </strong><?= $tweeter['location'] ?>
-	<?php if (empty($tweeter['location'])) echo "Unlisted"; ?></p>
-	<p><strong>Followers: </strong><?= $tweeter['followers'] ?></p><br/>
+			} ?></p> </td></tr>
+	<tr><td align="center"><p><strong>Location: </strong><?= $tweeter['location'] ?>
+	<?php if (empty($tweeter['location'])) echo "Unlisted"; ?></p> </td></tr>
+	<tr><td align="center"><p><strong>Followers: </strong><?= $tweeter['followers'] ?></p></td></tr><tr><td align="center">
 <?php
-	if ($no_tweets) echo "\t<p>Hmm...There aren\'t any tweets to display for this user.</p><br/><br/>";
+	if ($no_tweets) echo "\t<p>Hmm...There aren\'t any tweets to display for this user.</p><br/>";
 	else {
 	  echo "\t<p><strong>Tweets:</strong><br/>\n" ; 
 	  while ($line = pg_fetch_array($tweets, null, PGSQL_ASSOC) ) {
-		echo "\t<p>\"" . sanitize($line['tweet']) . "\"</p><br/><br/>";
+		echo "\t\"" . sanitize($line['tweet']) . "\"</p><br/>";
 	  }
 	} //end else
-?>	
+?>	</td></tr></table></font> <br/>
 	<a href="photowall.php?page=<?= $_GET['page'] ?>">Return to Photo Wall</a>
-	<br/><br/>
 	<?php
 		//echo "\t<p>This is a test:</p>\n\t<p>" . $tweeter['profile_img_url'] . "</p>\n"; 
 	?>
