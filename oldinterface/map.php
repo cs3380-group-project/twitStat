@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-	<title>TwitStat - Map</title>
-  	<link rel="stylesheet" type="text/css" href="styles.css">
     <style>
       #map_canvas {
         width: 900px;
@@ -40,47 +38,6 @@
 	</style>
   </head>
   <body>
-  		<form action="login.php" method='post' id="sign">
-			<input type='submit' name='signIn' value='Logout' />
-		</form>
-	
-		<div id="banner">
-		    twitStats
-			<br>
-		</div>
-		<table border="0">
-		<tr>
-			<td>
-				<form action="index.php" method='post' >
-					<input type='submit' name='submit' value="Home" class="buttons"/>
-					<br>
-				</form>
-			</td>	
-			<td>	
-				<form action="search.php" method='post' >
-					<input type='submit' name='submit' value="Search" class="buttons"/>
-					<br>
-				</form>
-			</td>
-			<td>
-				<form action="photowall.php" method='post' >
-					<input type='submit' name='submit' value="Photowall" class="buttons"/>
-					<br>
-				</form>
-			</td>	
-			<td>	
-				<form action="map.php" method='post' >
-					<input type='submit' name='submit' value="Map" class="buttons"/>
-					<br>
-				</form>
-			</td>	
-			<td>	
-				<form action="pie.php" method='post' >
-					<input type='submit' name='submit' value="Pie" class="buttons"/>
-					<br>
-				</form>
-			</td>	
-		</table>	
   
 	<form action="<?= $_SERVER['PHP_SELF'] ?>" method='post'>
 		<select name="cars">

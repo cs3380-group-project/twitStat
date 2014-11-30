@@ -1,53 +1,12 @@
 <html>
 <head>
-<title>TwitStat - Search</title>
-<link rel="stylesheet" type="text/css" href="styles.css">
+	<title>CS3380 Group Project</title>
+	<script src="include/jquery-1.10.2.js"></script>
+	<script src="include/jquery-ui-1.10.4.custom.js"></script>
+	<script src="include/ajax.js"></script>
 </head>
 <body>
-
-		<form action="login.php" method='post' id="sign">
-			<input type='submit' name='signIn' value='Logout' />
-		</form>
-	
-		<div id="banner">
-		    twitStats
-			<br>
-		</div>
-		<table border="0">
-		<tr>
-			<td>
-				<form action="index.php" method='post' >
-					<input type='submit' name='submit' value="Home" class="buttons"/>
-					<br>
-				</form>
-			</td>	
-			<td>	
-				<form action="search.php" method='post' >
-					<input type='submit' name='submit' value="Search" class="buttons"/>
-					<br>
-				</form>
-			</td>
-			<td>
-				<form action="photowall.php" method='post' >
-					<input type='submit' name='submit' value="Photowall" class="buttons"/>
-					<br>
-				</form>
-			</td>	
-			<td>	
-				<form action="map.php" method='post' >
-					<input type='submit' name='submit' value="Map" class="buttons"/>
-					<br>
-				</form>
-			</td>	
-			<td>	
-				<form action="pie.php" method='post' >
-					<input type='submit' name='submit' value="Pie" class="buttons"/>
-					<br>
-				</form>
-			</td>	
-		</table>
-<form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" id="searchForm">
-	
+<form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>">
 	Search for a :
 	<input type="radio" name="search_by" value="usr_id" />Usr_id
 	<input type="radio" name="search_by" value="name"  />Name
@@ -64,18 +23,16 @@
 </form>
 
 <?php
-
 	 //Connecting to database
         include("../../secure/database.php");
         $dbconn = pg_connect(HOST." ".DBNAME." ".USERNAME." ".PASSWORD)
         or die('Could not connect: ' . pg_last_error());
-
-
 	if(isset($_POST['submit'])){	
 		$searchterm = htmlspecialchars($_POST['query_string'] . '%');
 	
 		if($_POST['search_by']=='usr_id'){
-			$result = pg_prepare($dbconn, "usr_id_lookup", 'SELECT * FROM twit_user WHERE (twit_user.name ILIKE $1) ORDER BY (name)');
+			$result = pg_prepare($dbconn, "usr_id_lookup", 'SELECT * FROM twit_user
+			WHERE (twit_user.name ILIKE $1) ORDER BY (name)');
 			$result = pg_execute($dbconn, "usr_id_lookup", array($searchterm))  or die ("wrong typing: ". pg_last_error());
 			echo "<br><br>\n\tThere are " . pg_num_rows($result) . " rows returned.\n</br>\n</br>";
 			echo "<table border= '1'>\n";
@@ -117,8 +74,7 @@
 		}
 		
 		if($_POST['search_by']=='name'){
-			$result = pg_prepare($dbconn, "name_lookup", 'SELECT * FROM twit_user 
-			WHERE (twit_user.name ILIKE $1) ORDER BY (name)');
+			$result = pg_prepare($dbconn, "name_lookup", 'SELECT * FROM twit_user WHERE (twit_user.name ILIKE $1) ORDER BY (name)');
 			$result = pg_execute($dbconn, "name_lookup", array($searchterm))  or die ("wrong typing: ". pg_last_error());
 			echo "<br><br>\n\tThere are " . pg_num_rows($result) . " rows returned.\n</br>\n</br>";
 			echo "<table border= '1'>\n";
@@ -245,9 +201,10 @@
 			echo "</table> ";
 		}
 		
-		/*if($_POST('search_by' == 'description')
+		if($_POST('search_by' == 'description'))
 		{
-			$result = pg_prepare($dbconn, "description_lookup", 'SELECT * FROM twit_user WHERE (twit_user.name ILIKE $1) ORDER BY (name)');
+			$result = pg_prepare($dbconn, "description_lookup", 'SELECT * FROM twit_user
+			WHERE (twit_user.name ILIKE $1) ORDER BY (name)');
 			$result = pg_execute($dbconn, "description_lookup", array($searchterm))  or die ("wrong typing: ". pg_last_error());
 			echo "<br><br>\n\tThere are " . pg_num_rows($result) . " rows returned.\n</br>\n</br>";
 			echo "<table border= '1'>\n";
@@ -286,7 +243,7 @@
 					\t</tr>\n";		
 			}
 			echo "</table> ";
-		}*/
+		}
 		
 		if($_POST['search_by']=='followers'){
 			$result = pg_prepare($dbconn, "created_at_lookup", 'SELECT * FROM twit_user
@@ -603,3 +560,4 @@
 			echo "</table> ";
 		}
 }
+?>

@@ -8,14 +8,6 @@
 		<script src="include/ajax.js"></script>
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 		<script type="text/javascript">
-			$(function() {
-				$("#tabs").tabs();
-				$("#map").load("map.php");
-				$("#photowall").load("photowall.php");
-				$("#search").load("search.php");
-			});
-			
-	
 		</script>
 
 	</head>
@@ -29,30 +21,44 @@
 		    twitStats
 			<br>
 		</div>
-		
-		<div id="tabs">
-			<ul>
-				<li><a href="#home">Home</a></li>
-				<li><a href="#search">Search</a></li>
-				<li><a href="#photowall">Photo Wall</a></li>
-				<li><a href="#map">Map</a></li>
-				
-			</ul>
-			
-			<div id="home">
-				Group 14 of CS3380
-				<br>
-				We get stats on twitter stuff
-			</div>
-			
-			<div id="search">
-			</div>
-			<div id="photowall">
-			</div>
-			<div id="map">
-			</div>
-			
+		<table border="0">
+		<tr>
+			<td>
+				<form action="index.php" method='post' >
+					<input type='submit' name='submit' value="Home" class="buttons"/>
+					<br>
+				</form>
+			</td>	
+			<td>	
+				<form action="search.php" method='post' >
+					<input type='submit' name='submit' value="Search" class="buttons"/>
+					<br>
+				</form>
+			</td>
+			<td>
+				<form action="photowall.php" method='post' >
+					<input type='submit' name='submit' value="Photowall" class="buttons"/>
+					<br>
+				</form>
+			</td>	
+			<td>	
+				<form action="map.php" method='post' >
+					<input type='submit' name='submit' value="Map" class="buttons"/>
+					<br>
+				</form>
+			</td>	
+			<td>	
+				<form action="pie.php" method='post' >
+					<input type='submit' name='submit' value="Pie" class="buttons"/>
+					<br>
+				</form>
+			</td>	
+		</table>		
+		<br>
+		<div id="home">
+			Group 14 of CS3380
+			<br>
+			We get stats on twitter stuff
 		</div>
-	
 	</body>
 </html>

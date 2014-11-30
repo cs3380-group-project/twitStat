@@ -7,20 +7,18 @@
 	
 }
 
-#chart_div {
+#tabs {
+	width: auto;
 	margin: 0 auto;
-	text-align: center;
 }
 
-table {
-			margin: 0 auto;
-			text-align: center;
-			zoom: 3;
-		}
+.ui-tabs .ui-tabs-nav {
+		text-align: center;
+}
 
-#searchForm {
-	text-align: center;
-	margin: 0 auto;
+.ui-tabs .ui-tabs-nav li {
+		float: none !important;
+		display: inline-block;
 }
 
 #home {
