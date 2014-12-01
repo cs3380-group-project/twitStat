@@ -104,6 +104,6 @@
 			</td>	
 		</table>	
     <!--Div that will hold the pie chart-->
-    <div id="chart_div" style="text-align: center;"> </div>
+    <div id="chart_div" align="center"> </div>
   </body>
 </html>
