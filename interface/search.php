@@ -49,16 +49,17 @@
 <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" id="searchForm">
 	
 	Search for a :
-	<input type="radio" name="search_by" value="usr_id" />Usr_id
-	<input type="radio" name="search_by" value="name"  />Name
-    <input type="radio" name="search_by" value="screen_name"  />Screen_name
-	<input type="radio" name="search_by" value="location"  />Location
-	<input type="radio" name="search_by" value="id"  />Id 
-	<input type="radio" name="search_by" value="tweet"  />Tweet 
-	<input type="radio" name="search by" value="description" />description
-    <input type="radio" name="search by" value="followers" />followers
-	<input type="radio" name="search by" value="status_count" />status_count
-    <input type="radio" name="search by" value="fav_count" />fav_count <br /><br />	
+	<select name = "search_by">
+	<option value="usr_id" />Usr_id
+	<option value="name"  />Name
+    <option value="screen_name"  />Screen_name
+	<option value="location"  />Location
+	<option value="id"  />Id 
+	<option value="tweet"  />Tweet 
+	<option value="description" />description
+    <option value="followers" />followers
+	<option value="status_count" />status_count
+    <option value="fav_count" />fav_count <br /><br />	
     That begins with: <input type="text" name="query_string" value="" /> <br /><br />
     <input type="submit" name="submit" value="Submit" />
 </form>
