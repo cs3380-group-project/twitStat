@@ -18,9 +18,15 @@
       function drawChart() {
 
         // Create the data table.
-        var data = new google.visualization.DataTable();
+         var data = new google.visualization.DataTable();
         data.addColumn('string', 'name');
         data.addColumn('number', 'ratings');
+		var data2 = new google.visualization.DataTable();
+        data2.addColumn('string', 'year');
+        data2.addColumn('number', 'counts');
+		var data3 = new google.visualization.DataTable();
+        data3.addColumn('string', 'weekdays');
+        data3.addColumn('number', 'counts');
 		<?php
 
 		//adding connection
@@ -30,33 +36,84 @@
 
 
 		$query1 = "SELECT lang, count(lang) AS ct FROM twitStat.twit_user GROUP BY 1;";
-		$result = pg_query($query1) or die('Query failed: ' . pg_last_error());
-		$num_row=pg_num_rows($result);
+		$result1 = pg_query($query1) or die('Query failed: ' . pg_last_error());
+		$query2 = "SELECT created_at FROM twitStat.twit_user GROUP BY 1;";
+		$result2 = pg_query($query2) or die('Query failed: ' . pg_last_error());
+		$query3 = "SELECT created_at FROM twitStat.twit_user GROUP BY 1;";
+		$result3 = pg_query($query3) or die('Query failed: ' . pg_last_error());
 		?>
 		
         data.addRows([
 		<?php
 			// Performing SQL query
-			while ($line = pg_fetch_array($result, null, PGSQL_ASSOC)) {
+			while ($line = pg_fetch_array($result1, null, PGSQL_ASSOC)) {
 			// Printing results in HTML
 					echo "['".$line[lang]."',".$line[ct]."],";	
 			}
 		?>
         ]);
+		
+		data2.addRows([
+		<?php
+			$array=array();
+			// Performing SQL query
+			while ($line2 = pg_fetch_array($result2, null, PGSQL_ASSOC)) {
+					$year = explode(" ", $line2[created_at]);
+					array_push($array,$year[5]);
+					$addyear=array_count_values($array);
+				}
+			for ($i=min(array_keys($addyear));$i<(max(array_keys($addyear))+1);$i++){
+				echo "['".$i."',".$addyear[$i]."],";	
+			}
+		?>
+        ]);
+		
+		data3.addRows([
+		<?php
+			$array2=array();
+			// Performing SQL query
+			while ($line3 = pg_fetch_array($result3, null, PGSQL_ASSOC)) {
+					$date = explode(" ", $line3[created_at]);
+					array_push($array2,$date[0]);
+					$addDate=array_count_values($array2);
+			}
+			echo "['Mon',".$addDate['Mon']."],";
+			echo "['Tue',".$addDate['Tue']."],";
+			echo "['Wed',".$addDate['Wed']."],";
+			echo "['Thu',".$addDate['Thu']."],";
+			echo "['Fri',".$addDate['Fri']."],";
+			echo "['Sat',".$addDate['Sat']."],";
+			echo "['Sun',".$addDate['Sun']."]";
+		?>
+        ]);
 
         // Set chart options
-        var options = {'title':'Language',
+        var option1 = {'title':'Language',
+                       'width':1000,
+                       'height':1000};
+
+		var option2 = {'title':'Year User Created',
+                       'width':1000,
+                       'height':1000};
+					   
+		var option3 = {'title':'Tweets in Weekdays',
                        'width':1000,
                        'height':1000};
 
         // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
+       var chart = new google.visualization.PieChart(document.getElementById('language_chart_div'));
+        chart.draw(data, option1);
+		var chart2 = new google.visualization.LineChart(document.getElementById('year_chart_div'));
+        chart2.draw(data2, option2);
+		var chart3 = new google.visualization.ColumnChart(document.getElementById('weekdays_chart_div'));
+        chart3.draw(data3, option3);
       }
 	  <?php
-			pg_free_result($result);
+			pg_free_result($result1);
+			pg_free_result($result2);
+			pg_free_result($result3);
 		// Closing connection
-		pg_close($conn);
+		pg_close($dbconn);
 		?>
     </script>
   </head>
@@ -104,6 +161,8 @@
 			</td>	
 		</table>	
     <!--Div that will hold the pie chart-->
-    <div id="chart_div" align="center"> </div>
+    <div id="language_chart_div" align ="center"></div>
+	<div id="year_chart_div" align ="center" ></div>
+	<div id="weekdays_chart_div" align ="center" ></div>
   </body>
 </html>
