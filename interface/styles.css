@@ -17,6 +17,26 @@ table {
 			text-align: center;
 			zoom: 3;
 		}
+		
+a, a:visited {
+	color: inherit;
+}
+		
+#picwall {
+	zoom: 0;
+	background-color: cornflowerblue;
+	width: 85%;
+	color: white;
+}
+
+#tweeter {
+	zoom: 0;
+	background-color: cornflowerblue;
+	width: 65%;
+	color: white;
+	border-color: #696969;
+	border: 20;
+}
 
 #searchForm {
 	text-align: center;
