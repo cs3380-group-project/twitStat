@@ -1,7 +1,5 @@
-group-project
-=============
-
 twitStat
+=============
 
 
 This was a group project for the CS3380 class at the University of Missouri.
