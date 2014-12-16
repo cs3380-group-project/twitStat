@@ -1,0 +1,101 @@
+DROP SCHEMA IF EXISTS tweets CASCADE;
+CREATE SCHEMA tweets;
+SET search_path = tweets;
+CREATE TABLE tweet(
+	id serial primary key,
+	tweet varchar(140) NOT NULL,
+	source varchar(200),
+	user_id references user
+);
+CREATE TABLE user(
+	usr_id varchar(50),
+	name varchar(50)
+	screen_name varchar(50),
+	location varchar(50),
+	desription varchar(500),
+	followers integer,friends integer,
+	created_at varchar(20),
+	status_count integer,
+	fav_count integer,
+	lang varchar(4),
+	profile_img_url varchar(300),
+	default_img bit
+);
+CREATE TABLE geo(
+	id references tweet,
+	geo varchar(50),
+	coords varchar(50)
+);
+
+INSERT INTO tweet VALUES (
+	default,
+	"RT @tiisai105: 松潤☆
+http://t.co/F2tkz8KhNi",
+	"<a href="https://twitter.com/kinniku1007" rel="nofollow">ツイッター楽しいですね</a>",
+	"2325431995"
+);
+INSERT INTO user VALUES (
+	"2325431995",
+	"綾瀬はるか♡脱いだらスゴイんです♡",
+	"haruka20140203",
+	"",
+	"綾瀬はるかのセクシー画像を紹介します♪「キュン」ときたらリツイート＆フォローよろしくね♪",
+	1920,996,"Mon Feb 03 12:53:13 +0000 2014",41525,996,"ja",
+	"http://pbs.twimg.com/profile_images/512902825253146624/eBMU1ROz_normal.jpeg",
+	"false"
+);
+
+INSERT INTO tweet VALUES (
+	default,
+	"@Ruishann then thats not late enough 😂 shit I damn late. First day late bad impression",
+	"<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>",
+	"224217261"
+);
+INSERT INTO user VALUES (
+	"224217261",
+	"Bryan Tay",
+	"BoredBryan",
+	"Singapore",
+	"Your life~ Live it your way~ ♠♥",
+	338,350,"Wed Dec 08 12:59:49 +0000 2010",27825,350,"en",
+	"http://pbs.twimg.com/profile_images/477115213859127298/siw7CLw5_normal.jpeg",
+	"false"
+);
+
+INSERT INTO tweet VALUES (
+	default,
+	"Akrep burcu hatunları aldatılınca çok üzülürmüş. Biz Aslan hatunları aldatılınca toplanıp halay çekiyoruz zaten. 👯👯",
+	"<a href="http://twitter.com/download/iphone" rel="nofollow">Twitter for iPhone</a>",
+	"443126589"
+);
+INSERT INTO user VALUES (
+	"443126589",
+	"Rümeysa Derya",
+	"RDeryaa",
+	"İzmir",
+	"Modern Yobaz.",
+	10376,7636,"Wed Dec 21 21:02:47 +0000 2011",16907,7636,"tr",
+	"http://pbs.twimg.com/profile_images/523978584235712512/yRw_4IwL_normal.jpeg",
+	"false"
+);
+INSERT INTO geo VALUES (
+	DEFAULT,
+	"[object Object]",
+	"[object Object]"
+);
+INSERT INTO tweet VALUES (
+	default,
+	"Que lindo es ser de River ♡",
+	"<a href="http://twitter.com/download/android" rel="nofollow">Twitter for Android</a>",
+	"1605059330"
+);
+INSERT INTO user VALUES (
+	"1605059330",
+	"♥AgusMeAma&SoyDeEl♥",
+	"AkLuciia",
+	"rochi landia",
+	"Agus mi mejor me ama y no me comparte con nadie",
+	207,179,"Fri Jul 19 04:27:19 +0000 2013",7594,179,"es",
+	"http://pbs.twimg.com/profile_images/510875209952657408/Ms-GXNbB_normal.jpeg",
+	"false"
+);

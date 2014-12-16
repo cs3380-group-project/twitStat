@@ -1,56 +1,70 @@
-#banner {
-	color: cornflowerblue;
-	font-size: 100px;
-	text-align: center;
-	margin: 0 auto;
-	overflow:auto;
-	
-}
-
-#chart_div {
-	margin: 0 auto;
-	text-align: center;
-}
-
-table {
-			margin: 0 auto;
-			text-align: center;
-			zoom: 3;
-		}
-		
 a, a:visited {
 	color: inherit;
 }
 		
 #picwall {
 	zoom: 0;
-	background-color: cornflowerblue;
-	width: 85%;
-	color: white;
+	width: 1000px;
+	color: black;
+}
+
+td{
+	align:center;
+}
+
+th{
+	text-align:center;
+}
+
+tr{
+	text-align: center;
 }
 
 #tweeter {
 	zoom: 0;
-	background-color: cornflowerblue;
 	width: 65%;
-	color: white;
-	border-color: #696969;
+	color: black;
+	border-color: black;
 	border: 20;
 }
 
-#searchForm {
+.pie {
+	display:inline-block;
+	text-align: center;
+	margin: 0 auto;
+	height: 700px;
+	width: 700px;
+}
+
+#charts {
 	text-align: center;
 	margin: 0 auto;
 }
 
-#home {
-	text-align: center;
-	color: cornflowerblue;
+.groupPix {
+	width: 100px;
+	height: 100px;
 }
 
-#sign {
-	position: absolute;
-	top: 0;
-	right: 0;
-	margin: 10px;
+table {
+  table-layout: fixed;
+  width:100%;
 }
+
+.navbar-default {
+    background-color: #F8F8F8;
+    border-color: #E7E7E7;
+}
+
+textarea {
+   resize: none;
+
+}
+
+#searchBar {
+	width: 400px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+

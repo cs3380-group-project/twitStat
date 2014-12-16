@@ -7,28 +7,28 @@
 var fs = require('fs');
 var Twit = require('twit');
 var T = new Twit({
-	  consumer_key: 'Z8xZVqOwIJCoVt2HNWPoyTPuk'
-	, consumer_secret: 'f73H3LfIiC37PMvDfPjX8ef4aZE6EDhPbUMCPEFXnCPKntvKTb'
-	, access_token: '21799745-mAVFDZIPk0ib6VFVwnctwYNWvo4WAl3y6sJkEjyLT'
-	, access_token_secret: 'o18qjH5VB9KdFbyGOc2pf8DPVnFtHY6NFhUMjSlf1GxtU'
+	  consumer_key: // need to get your own credentials
+	, consumer_secret: // need to get your own credentials
+	, access_token: // need to get your own credentials
+	, access_token_secret: // need to get your own credentials
 })
-var wstream = fs.createWriteStream('tweetDB.sql');
+var wstream = fs.createWriteStream('ALTtweetDB.sql');
 
 wstream.write("DROP SCHEMA IF EXISTS twitStat CASCADE;\n");	// init table
 wstream.write("CREATE SCHEMA twitStat;\n");
 wstream.write("SET search_path = twitStat;\n");
 
-wstream.write("CREATE TABLE twit_user(\n\tusr_id varchar(50) primary key,\n\tname varchar(50),\n\tscreen_name varchar(50),\n\t");
+wstream.write("CREATE TABLE twit_user(\n\tusr_id bigint primary key,\n\tname varchar(50),\n\tscreen_name varchar(50),\n\t");
 wstream.write("location varchar(50),\n\tdesription varchar(500),\n\tfollowers integer,\n\t");
 wstream.write("friends integer,\n\tcreated_at text,\n\tstatus_count integer,\n\t");
 wstream.write("fav_count integer,\n\tlang varchar(6),\n\tprofile_img_url varchar(300),\n\t");
 wstream.write("default_img boolean\n);\n");
 
-wstream.write("CREATE TABLE tweets(\n\tid serial primary key,\n\ttweet text NOT NULL,\n\t");
+wstream.write("CREATE TABLE tweets(\n\tid bigint primary key,\n\ttweet text NOT NULL,\n\t");
 wstream.write("source varchar(300),\n\tuser_id bigint\n);\n");
 
 
-wstream.write("CREATE TABLE geo(\n\tid serial references tweets,\n\tlatitude double precision,\n\tlongitude double precision\n);\n");
+wstream.write("CREATE TABLE geo(\n\tid bigint references tweets,\n\tlatitude double precision,\n\tlongitude double precision\n);\n");
 //wstream.write("coords text\n);\n");
 
 wstream.write("");
@@ -38,13 +38,16 @@ var stream = T.stream('statuses/sample')	// create stream object
 var count = 0;
 
 stream.on('tweet', function (tweet) {	// go and grab one tweet from stream
+
+
+
 //		console.log(tweet)	// log tweet onto screen
 		//count--;
 		console.log(count);
 		count++;
 		// create user entry
 		wstream.write("INSERT INTO twit_user VALUES (\n\t");
-		wstream.write("\'"+tweet.user.id+"\',\n\t");
+		wstream.write(tweet.user.id+",\n\t");
 		
 		var name = String(tweet.user.name);
 		var newname = name.replace(/'/g,"::");
@@ -71,10 +74,14 @@ stream.on('tweet', function (tweet) {	// go and grab one tweet from stream
 		wstream.write(");\n");
 		
 		// create tweet entry
-		wstream.write("\nINSERT INTO tweets VALUES (\n\tdefault,\n\t");
+		wstream.write("\nINSERT INTO tweets VALUES (\n\t");
+	
+		var id = String(tweet.id);
+	
+		wstream.write(id+",\n\t");
 		var text = String(tweet.text);
-		text = text.replace(/"/g,'::')										// make sure vairable is a string
-		text = text.replace(/'/g,';;')										// make sure vairable is a string
+		text = text.replace(/"/g,'::');										// make sure vairable is a string
+		text = text.replace(/'/g,';;');										// make sure vairable is a string
 		wstream.write("\'"+text+"\',\n\t");
 		
 		var src = String(tweet.source);
@@ -84,8 +91,8 @@ stream.on('tweet', function (tweet) {	// go and grab one tweet from stream
 		wstream.write(tweet.user.id+"\n");
 		wstream.write(");\n");
 
-		// create geo-tweet	
 
+		// create geo-tweet	
 
 	var geo = String(tweet.geo);
 	if(geo.indexOf("null")==-1){
@@ -101,7 +108,7 @@ stream.on('tweet', function (tweet) {	// go and grab one tweet from stream
 		console.log("\tlong: ",parseFloat( coord[1] ));
 		var long = parseFloat( coord[1] );
 		
-		wstream.write("INSERT INTO geo values (\n\t default,\n\t");
+		wstream.write("INSERT INTO geo values (\n\t"+ id +",\n\t");
 		wstream.write(lat + ",\n\t" + long + "\n);\n")
 	}
 })

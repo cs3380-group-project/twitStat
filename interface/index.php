@@ -1,64 +1,39 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>twitStats</title>
-		<link rel="stylesheet" type="text/css" href="styles.css">
-		<script src="include/jquery-1.10.2.js"></script>
-		<script src="include/jquery-ui-1.10.4.custom.js"></script>
-		<script src="include/ajax.js"></script>
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
-		<script type="text/javascript">
-		</script>
+<head>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<meta charset=UTF-8>
+	<!-- Bootstrap core CSS -->
+	<link href="include/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Bootstrap theme -->
+	<link href="include/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+	<title>twitStats</title>
+</head>
+<body>
+	<?php
+		include 'nav.php'; 
+		 // Make sure private data is secured using HTTPS
+        if ($_SERVER['HTTPS'] !== 'on') {
+                $redirectURL = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+                header("Location: $redirectURL");
+                exit;
+        }
 
-	</head>
-	<body>
-		<!-- Placeholder login stuff -->
-		<form action="login.php" method='post' id="sign">
-			<input type='submit' name='signIn' value='Logout' />
-		</form>
-	
-		<div id="banner">
-		    twitStats
-			<br>
-		</div>
-		<table border="0">
-		<tr>
-			<td>
-				<form action="index.php" method='post' >
-					<input type='submit' name='submit' value="Home" class="buttons"/>
-					<br>
-				</form>
-			</td>	
-			<td>	
-				<form action="search.php" method='post' >
-					<input type='submit' name='submit' value="Search" class="buttons"/>
-					<br>
-				</form>
-			</td>
-			<td>
-				<form action="photowall.php" method='post' >
-					<input type='submit' name='submit' value="Photowall" class="buttons"/>
-					<br>
-				</form>
-			</td>	
-			<td>	
-				<form action="map.php" method='post' >
-					<input type='submit' name='submit' value="Map" class="buttons"/>
-					<br>
-				</form>
-			</td>	
-			<td>	
-				<form action="pie.php" method='post' >
-					<input type='submit' name='submit' value="Pie" class="buttons"/>
-					<br>
-				</form>
-			</td>	
-		</table>		
-		<br>
-		<div id="home">
-			Group 14 of CS3380
-			<br>
-			We get stats on twitter stuff
-		</div>
-	</body>
-</html>
+	?>
+	<center>
+    <div class="container theme-showcase" role="main">
+      <!-- Main jumbotron for button holding -->
+      <div class="jumbotron">
+        <h1 style="color:cornflowerblue">twitStats</h1>
+		<p>
+		   <a href="search.php" class="btn btn-primary btn-lg" role="button" >Search</a>
+		   <a href="photowall.php" class="btn btn-primary btn-lg" role="button">Photowall</a>
+		   <a href="pie.php" class="btn btn-primary btn-lg" role="button">Charts</a>
+		   <a href="map.php" class="btn btn-primary btn-lg" role="button">Map</a>
+		</p>
+	  </div>
+	</div>
+	<!-- run scripts at end of page for faster loading -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="include/bootstrap/dist/js/bootstrap.min.js"></script>
+ </body>
